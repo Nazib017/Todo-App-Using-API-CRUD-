@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                       child: ListTile(
                         leading: CircleAvatar(
                           child: Text("${index + 1}"),
-                          backgroundColor: Colors.orange,
+                          backgroundColor: Colors.orange[50],
                         ),
                         title: Text(
                           "${item['title']}",
@@ -121,14 +121,21 @@ class _HomePageState extends State<HomePage> {
                         ),
                         trailing: PopupMenuButton(
                           color: Colors.grey[300],
-                          onSelected: (value) {
+                          onSelected: (value) async{
                             if (value == 'edit') {
-                              Navigator.push(
+                          final Result=await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => updateTodo(
                                             id: id,
                                           )));
+
+
+
+                          if (Result == true) {
+                            fetchData();
+                          }
+
                             } else if (value == 'delete') {
                               deleteTodo(id);
                             }

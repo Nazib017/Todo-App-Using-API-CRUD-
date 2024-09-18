@@ -70,9 +70,8 @@ class _updateTodoState extends State<updateTodo> {
                 child: ElevatedButton(
                   onPressed: () {
                     updateTodo(widget.id);
-                    Navigator.pop(context);
-                    _updatedtitleController.clear();
-                    _updatedescriptionController.clear();
+                    Navigator.pop(context,true);
+
                   },
                   child: const Text("Update ToDo"),
                   style: ElevatedButton.styleFrom(
