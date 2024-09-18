@@ -50,9 +50,10 @@ class _HomePageState extends State<HomePage> {
       body:  Visibility(
               visible: isLoading,
               child: const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(color: Colors.orange,),
               ),
               replacement: RefreshIndicator(
+                color: Colors.orange,
                 onRefresh: fetchData,
                 child: ListView.builder(
                   itemBuilder: (_, index) {
