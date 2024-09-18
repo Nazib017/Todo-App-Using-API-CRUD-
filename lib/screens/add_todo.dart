@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:todo_api/screens/home.dart';
-
+import 'package:todo_api/screens/home.dart';
 class addTodo extends StatelessWidget {
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
@@ -72,9 +73,11 @@ class addTodo extends StatelessWidget {
                     if (_titleController.text.isNotEmpty &&
                         _descriptionController.text.isNotEmpty) {
                       onTapaddTodo(context);
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>HomePage()));
+
+                     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>HomePage()));
                       _descriptionController.clear();
                       _titleController.clear();
+
                     }
                   },
                   child: const Text("Add ToDo"),
@@ -103,6 +106,7 @@ class addTodo extends StatelessWidget {
       },
     );
     if (response.statusCode == 201) {
+      Navigator.pop(context, true);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Added Successfully")));
     } else {

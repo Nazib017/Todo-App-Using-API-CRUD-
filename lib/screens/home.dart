@@ -37,9 +37,18 @@ class _HomePageState extends State<HomePage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          onPressed: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (_) => addTodo()));
+          onPressed: () async{
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => addTodo()),
+            );
+
+            if (result == true) {
+              fetchData();
+            }
+
+            // Navigator.pushReplacement(
+            //     context, MaterialPageRoute(builder: (_) => addTodo()));
           },
           child: const Text(
             "Add ToDo",
@@ -53,26 +62,30 @@ class _HomePageState extends State<HomePage> {
                 child: CircularProgressIndicator(color: Colors.orange,),
               ),
               replacement:todoList.isEmpty
-                  ? const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.list_alt,
-                      size: 100,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "No To-Dos Available",
-                      style: TextStyle(
-                        fontSize: 20,
+                  ? RefreshIndicator(
+                color: Colors.orange,
+                     onRefresh: fetchData,
+                    child: const Center(
+                                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.list_alt,
+                        size: 100,
                         color: Colors.grey,
                       ),
-                    ),
-                  ],
-                ),
-              ):
+                      SizedBox(height: 20),
+                      Text(
+                        "No To-Dos Available",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                                    ),
+                                  ),
+                  ):
               RefreshIndicator(
                 color: Colors.orange,
                 onRefresh: fetchData,
